@@ -16,8 +16,8 @@
 	--color-azure-blue: var(--azure-blue);
 	--color-strawberry-red: var(--strawberry-red);
 	--color-malachite-green: var(--malachite-green);
-	--font-sans: var(--font-sf-pro-display);
-	--font-mono: var(--font-sf-mono);
+	--font-sans: var(--font-sf-pro-display), -apple-system, sans-serif;
+	--font-mono: var(--font-sf-mono), monospace;
 }
 
 @media (prefers-color-scheme: dark) {
