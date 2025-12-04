@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+	--onyx: #161616;
+	--alibaster-gray: #e8e8e8;
+	--azure-blue: #007fff;
+	--strawberry-red: #ff4242;
+	--malachite-green: #07da74;
+	--background: var(--alibaster-gray);
+	--foreground: var(--onyx);
+}
+
+@theme inline {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-azure-blue: var(--azure-blue);
+	--color-strawberry-red: var(--strawberry-red);
+	--color-malachite-green: var(--malachite-green);
+	--font-sans: var(--font-sf-pro-display);
+	--font-mono: var(--font-sf-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--onyx);
+		--foreground: var(--alibaster-gray);
+	}
+}
+
+body {
+	@apply font-sans bg-background text-foreground;
+}
