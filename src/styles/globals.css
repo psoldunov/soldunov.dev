@@ -6,8 +6,16 @@
 	--azure-blue: #007fff;
 	--strawberry-red: #ff4242;
 	--malachite-green: #07da74;
+}
+
+[data-theme="light"] {
 	--background: var(--alibaster-gray);
 	--foreground: var(--onyx);
+}
+
+[data-theme="dark"] {
+	--background: var(--onyx);
+	--foreground: var(--alibaster-gray);
 }
 
 @theme inline {
@@ -18,10 +26,12 @@
 	--color-malachite-green: var(--malachite-green);
 	--font-sans: var(--font-sf-pro-display), -apple-system, sans-serif;
 	--font-mono: var(--font-sf-mono), monospace;
+	--leading-xtight: 1.2;
+	--text-4_5xl: 2.625rem;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not([data-theme]) {
 		--background: var(--onyx);
 		--foreground: var(--alibaster-gray);
 	}
