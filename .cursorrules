@@ -1,0 +1,19 @@
+# Cursor Rules
+- Project: Next.js 16 App Router with strict TypeScript, Tailwind v4, and Jotai. Source lives in `src` with `@/*` aliasing to `src/*`.
+- Styling: prefer Tailwind utilities; reuse `cn` from `@/lib/utils`; global tweaks belong in `@/styles/globals.css`.
+- Layout: shared wrappers in `@/components/layout`, sections in `@/components/sections`, reusable bits in `@/components/elements` and `@/components/ui`.
+- Assets/fonts: fonts export from `@/fonts` (CSS vars already wired in `RootLayout`); keep the grain background (`@/assets/grain.png`) pattern intact unless intentionally changed.
+- State & animation: lean on Jotai atoms in `@/lib/state`; use existing motion patterns before adding new animation helpers.
+
+# Commands
+- Install deps: `bun install` (bun.lock is authoritative).
+- Dev server: `bun dev`.
+- Lint: `bun run lint` (Biome). Format: `bun run format`.
+
+# Conventions
+- Use TypeScript and keep strictness in mind; prefer server components unless the feature needs client-side state or effects.
+- Keep components small and composable; new page sections belong under `components/sections`.
+- Use absolute imports with `@/`; avoid redefining shared helpers already in `lib`.
+- If adding env vars or configuration, document them in `README.md`.
+- Run lint/format before committing; avoid introducing new tooling without discussion.
+
