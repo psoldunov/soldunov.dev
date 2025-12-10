@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { Provider } from 'jotai';
+import { draftMode } from 'next/headers';
+import { VisualEditing } from 'next-sanity/visual-editing';
 import grain from '@/assets/grain.png';
 import Html from '@/components/layout/html';
+import DisableDraftMode from '@/components/utility/DisableDraftMode';
 import { sfMono, sfProDisplay } from '@/fonts';
 import { cn } from '@/lib/utils';
+import { SanityLive } from '@/sanity/lib/live';
 
 export const metadata: Metadata = {
 	title: 'Philipp Soldunov | React, Next.js, Expo and Sanity Developer',
@@ -14,7 +18,7 @@ export const metadata: Metadata = {
 
 // https://web.archive.org/web/20211214011830/https://www.point.app/intersection
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -31,6 +35,13 @@ export default function RootLayout({
 					style={{ '--bg-image': `url(${grain.src})` } as React.CSSProperties}
 				>
 					{children}
+					<SanityLive />
+					{(await draftMode()).isEnabled && (
+						<>
+							<DisableDraftMode />
+							<VisualEditing />
+						</>
+					)}
 				</body>
 			</Html>
 		</Provider>

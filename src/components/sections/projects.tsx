@@ -1,3 +1,6 @@
+'use client';
+
+import { motion, type Variants } from 'motion/react';
 import type { StaticImageData } from 'next/image';
 import { Fragment } from 'react/jsx-runtime';
 import type { IconType } from 'react-icons';
@@ -9,11 +12,29 @@ import {
 	SiTypescript,
 	SiVercel,
 } from 'react-icons/si';
-import SlideInDiv from '../elements/slide-in-div';
 import Container from '../layout/container';
 import ProjectCard from '../ui/project-card';
 
-interface Project {
+const containerVariants: Variants = {
+	hidden: {},
+	show: {
+		transition: {
+			staggerChildren: 0.12,
+			delayChildren: 0.08,
+		},
+	},
+};
+
+const itemVariants: Variants = {
+	hidden: { translateY: 20, opacity: 0 },
+	show: {
+		translateY: 0,
+		opacity: 1,
+		transition: { duration: 0.5, ease: 'easeOut' },
+	},
+};
+
+export interface Project {
 	name: string;
 	year: string;
 	description: string;
@@ -61,21 +82,36 @@ export default function ProjectsSection() {
 		<section className='pt-12'>
 			<Container>
 				<div className='max-w-5xl'>
-					<h2 className='mb-3 font-semibold text-foreground/40 text-xl'>
+					<motion.h2
+						initial={{ translateY: 20, opacity: 0 }}
+						whileInView={{ translateY: 0, opacity: 1 }}
+						viewport={{ once: true }}
+						transition={{ duration: 0.5, delay: 0.1 }}
+						className='mb-3 font-semibold text-foreground/40 text-xl'
+					>
 						Featured Projects
-					</h2>
-					<div className='flex flex-col gap-8'>
+					</motion.h2>
+					<motion.div
+						className='flex flex-col gap-8'
+						variants={containerVariants}
+						initial='hidden'
+						whileInView='show'
+						viewport={{ once: true, amount: 0.2 }}
+					>
 						{projects.map((project, index) => (
 							<Fragment key={project.name}>
-								<SlideInDiv>
+								<motion.div variants={itemVariants}>
 									<ProjectCard project={project} />
-									{index < projects.length - 1 && (
-										<hr className='mt-8 border-foreground/10 border-dashed' />
-									)}
-								</SlideInDiv>
+								</motion.div>
+								{index < projects.length - 1 && (
+									<motion.hr
+										variants={itemVariants}
+										className='mt-8 border-foreground/10 border-dashed'
+									/>
+								)}
 							</Fragment>
 						))}
-					</div>
+					</motion.div>
 				</div>
 			</Container>
 		</section>

@@ -1,0 +1,1 @@
+export { useIsMainWindow } from './useIsMainWindow';

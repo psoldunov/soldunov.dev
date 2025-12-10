@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+	images: {
+		formats: ['image/avif', 'image/webp'],
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'cdn.sanity.io',
+			},
+		],
+		qualities: [75, 85, 100],
+	},
+	serverExternalPackages: ['isomorphic-dompurify'],
 };
 
 export default nextConfig;

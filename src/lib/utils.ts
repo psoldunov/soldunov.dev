@@ -1,5 +1,7 @@
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import type { Route } from '@/sanity/schemas/documents/base/route';
+import { dynamicSections } from './sections';
 
 /**
  * Combines class names using clsx and tailwind-merge
@@ -8,4 +10,48 @@ import { twMerge } from 'tailwind-merge';
  */
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
+}
+
+/**
+ * Normalizes slug parameters from Next.js dynamic routes
+ * @param slug - The slug parameter (undefined, string, or string array)
+ * @returns Normalized slug path starting with '/'
+ */
+export function normalizeSlug(slug?: string | string[]) {
+	// Optional catch-all route with no slug (undefined)
+	if (!slug) {
+		return '/';
+	}
+
+	// Dynamic route (string)
+	if (typeof slug === 'string') {
+		return slug;
+	}
+
+	// Catch-all route (array)
+	return `/${slug.join('/')}`;
+}
+
+/**
+ * Splits a slug string into an array of parts
+ * @param slug - The slug string to split
+ * @returns Array of slug parts (excluding empty strings)
+ */
+export function splitSlug(slug: string): string[] {
+	return slug.split('/').filter((part) => part !== '');
+}
+
+/**
+ * Checks if a route contains sections that require dynamic parameters.
+ *
+ * @param route - The route to check for dynamic sections
+ * @returns `true` if the route has dynamic sections, `false` otherwise (including redirect routes or routes without sections)
+ */
+export function hasDynamicParams(route: Route): boolean {
+	if (route.isRedirect || !route.page?.sections) {
+		return false;
+	}
+	return route.page.sections.some((section) =>
+		(dynamicSections as string[]).includes(section._type),
+	);
 }
