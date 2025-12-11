@@ -1,9 +1,7 @@
-import heroSection, {
-	HERO_SECTION_QUERY_PART,
-	type HeroSectionType,
-} from './heroSection';
+import type { HeroSectionProps } from '@/components/sections/hero';
+import heroSection, { HERO_SECTION_QUERY_PART } from './heroSection';
 
-export type SectionType = HeroSectionType;
+export type SectionProps = HeroSectionProps;
 
 const sectionTypes = [heroSection];
 

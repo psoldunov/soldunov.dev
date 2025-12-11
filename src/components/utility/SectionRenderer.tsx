@@ -1,6 +1,6 @@
 import type { ElementType } from 'react';
 import sections from '@/lib/sections';
-import type { SectionType } from '@/sanity/schemas/sections';
+import type { SectionProps } from '@/sanity/schemas/sections';
 
 function SectionComponent(_type: keyof typeof sections): ElementType {
 	return sections[_type];
@@ -10,7 +10,7 @@ export function SectionRenderer({
 	section,
 	searchParams,
 }: {
-	section: SectionType;
+	section: SectionProps;
 	searchParams?: { [key: string]: string | string[] | undefined };
 }) {
 	const { _type } = section;

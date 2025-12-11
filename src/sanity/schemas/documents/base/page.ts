@@ -1,17 +1,17 @@
 import { orderRankField } from '@sanity/orderable-document-list';
 import { StickyNote } from 'lucide-react';
 import { defineType } from 'sanity';
-import type { SectionType } from '@/sanity/schemas/sections';
+import type { SectionProps } from '@/sanity/schemas/sections';
 import sectionTypes from '@/sanity/schemas/sections';
-import type { SanityImage } from '@/sanity/types';
+import type { SanityImageObject } from '@/sanity/types';
 
 export type Page = {
 	title: string;
-	sections?: SectionType[];
+	sections?: SectionProps[];
 	seo: {
 		title?: string;
 		description?: string;
-		ogImage?: SanityImage;
+		ogImage?: SanityImageObject;
 		isExcluded: boolean;
 	};
 };

@@ -1,11 +1,11 @@
 import { CogIcon } from '@sanity/icons';
 import { defineType } from 'sanity';
-import type { SanityImage } from '@/sanity/types';
+import type { SanityImageObject } from '@/sanity/types';
 
 export type SettingsType = {
 	title: string;
 	description: string;
-	ogImage: SanityImage;
+	ogImage: SanityImageObject;
 };
 
 const settings = defineType({

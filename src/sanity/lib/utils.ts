@@ -1,31 +1,15 @@
 import {
 	getFileAsset,
-	getImage,
 	type SanityFileSource,
 	type SanityImageSource,
 } from '@sanity/asset-utils';
 import { createImageUrlBuilder } from '@sanity/image-url';
 import type { PortableTextBlock } from 'sanity';
-import type { SanityImage } from '@/sanity/types';
-import { dataset, projectId } from '../env';
+import type { SanityImageObject } from '@/sanity/types';
+
 import { client as sanityClient } from './client';
 
 const builder = createImageUrlBuilder(sanityClient);
-
-/**
- * Gets the URL for a Sanity image asset.
- *
- * @param image - The Sanity image object to get the URL for
- * @returns The URL string of the image asset
- */
-export function getImageUrl(image: SanityImage) {
-	const imageObject = getImage(image as SanityImageSource, {
-		projectId,
-		dataset,
-	});
-
-	return imageObject.asset.url;
-}
 
 /**
  * Gets the file asset information for a Sanity file source.
@@ -53,7 +37,7 @@ export default function urlFor(source: SanityImageSource) {
  * Generates a cached OG image URL using Next.js image optimization
  * Takes a SanityImage, optimizes it for OG dimensions, and returns a cached URL
  */
-export function getCachedOGImageUrl(image: SanityImage): string {
+export function getCachedOGImageUrl(image: SanityImageObject): string {
 	const sanityImageUrl = urlFor(image)
 		.width(1200)
 		.height(630)

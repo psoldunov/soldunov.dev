@@ -1,29 +1,14 @@
 import { MonitorIcon } from 'lucide-react';
 import { defineQuery } from 'next-sanity';
-import type { PortableTextBlock } from 'sanity';
+import { getImageFragment } from '@/sanity/lib/queries/fragments';
 import { extractPortableText, stripNonPrintables } from '@/sanity/lib/utils';
-import type { SanityImage } from '@/sanity/types';
-import sanityImage from '../fields/sanityImage';
-import {
-	type BaseSection,
-	defineSection,
-} from '../objects/constructors/defineSection';
-
+import defineImage from '../constructors/defineImage';
+import defineSection from '../constructors/defineSection';
 export const HERO_SECTION_QUERY_PART = defineQuery(`
 	_type == "heroSection" => {
 		...,
-		image{
-			...,
-			asset->
-		},
+		${getImageFragment('image')}
 	}`);
-
-export type HeroSectionType = BaseSection & {
-	_type: 'heroSection';
-	heading: string;
-	paragraph: PortableTextBlock[];
-	image: SanityImage;
-};
 
 const heroSection = defineSection({
 	name: 'heroSection',
@@ -34,26 +19,19 @@ const heroSection = defineSection({
 			type: 'string',
 			name: 'heading',
 			title: 'Heading',
-			validation: (Rule) => Rule.required(),
+			validation: (rule) => rule.required(),
 		},
 		{
 			name: 'paragraph',
 			type: 'array',
-			of: [{ type: 'block' }],
+			of: [{ type: 'block', styles: [], lists: [], marks: { decorators: [] } }],
 			title: 'Paragraph',
-			validation: (Rule) => Rule.required(),
-		},
-		sanityImage({
-			title: 'Avatar Image',
 			validation: (rule) => rule.required(),
-			fields: [
-				{
-					name: 'caption',
-					type: 'string',
-					title: 'Caption',
-					description: 'A caption for the image',
-				},
-			],
+		},
+		defineImage({
+			title: 'Image',
+			validation: (rule) => rule.required(),
+			hotspot: true,
 		}),
 	],
 	preview: {
