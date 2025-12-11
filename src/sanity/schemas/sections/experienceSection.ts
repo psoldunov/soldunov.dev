@@ -3,6 +3,7 @@ import type { BaseSectionProps } from '@/sanity/types';
 import defineSection from '../constructors/defineSection';
 import type { SanityLinkType } from '../objects/common/sanityLink';
 import type { ExperienceItem } from '../objects/experience';
+import { BriefcaseIcon } from 'lucide-react';
 
 export type ExperienceSectionProps = BaseSectionProps & {
 	expHeading: string;
@@ -18,6 +19,7 @@ export const EXPERIENCE_SECTION_QUERY_PART = defineQuery(`
 const experienceSection = defineSection({
 	name: 'experienceSection',
 	title: 'Experience & Contact Section',
+	icon: BriefcaseIcon,
 	fields: [
 		{
 			type: 'string',
@@ -46,6 +48,23 @@ const experienceSection = defineSection({
 			validation: (rule) => rule.required().min(1),
 		},
 	],
+	preview: {
+		select: {
+			expHeading: 'expHeading',
+			contactHeading: 'contactHeading',
+			experiences: 'experiences',
+			contacts: 'contacts',
+		},
+		prepare({ expHeading, contactHeading, experiences, contacts }) {
+			return {
+				title:
+					expHeading && contactHeading
+						? `${expHeading} • ${contactHeading}`
+						: undefined,
+				subtitle: `${experiences.length || 0} experiences • ${contacts.length || 0} contacts`,
+			};
+		},
+	},
 });
 
 export default experienceSection;
