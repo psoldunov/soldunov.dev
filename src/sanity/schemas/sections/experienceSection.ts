@@ -1,9 +1,9 @@
+import { BriefcaseIcon } from 'lucide-react';
 import { defineQuery } from 'next-sanity';
 import type { BaseSectionProps } from '@/sanity/types';
 import defineSection from '../constructors/defineSection';
 import type { SanityLinkType } from '../objects/common/sanityLink';
 import type { ExperienceItem } from '../objects/experience';
-import { BriefcaseIcon } from 'lucide-react';
 
 export type ExperienceSectionProps = BaseSectionProps & {
 	expHeading: string;

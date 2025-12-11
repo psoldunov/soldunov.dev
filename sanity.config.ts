@@ -7,6 +7,7 @@ import { defineConfig, type SchemaTypeDefinition } from 'sanity';
 import { presentationTool } from 'sanity/presentation';
 import { type StructureBuilder, structureTool } from 'sanity/structure';
 import { apiVersion, dataset, projectId } from '@/sanity/env';
+import { resolve } from '@/sanity/lib/resolve';
 import { schemaTypes } from '@/sanity/schemas';
 
 const readOnlyTypes = new Set<string>([]);
@@ -81,34 +82,12 @@ export default defineConfig({
 							context,
 						}),
 						S.divider(),
-						// S.listItem()
-						// 	.title('Team')
-						// 	.icon(UsersIcon)
-						// 	.child(
-						// 		S.list()
-						// 			.title('Team')
-						// 			.items([
-						// 				orderableDocumentListDeskItem({
-						// 					title: 'Members',
-						// 					type: 'team.member',
-						// 					icon: UsersIcon,
-						// 					S,
-						// 					context,
-						// 				}),
-						// 				orderableDocumentListDeskItem({
-						// 					title: 'Offices',
-						// 					type: 'team.division',
-						// 					icon: BuildingIcon,
-						// 					S,
-						// 					context,
-						// 				}),
-						// 			]),
-						// 	),
 					]);
 			},
 		}),
 		presentationTool({
 			title: 'Live Editing',
+			resolve,
 			previewUrl: {
 				previewMode: {
 					enable: '/api/draft-mode/enable',
