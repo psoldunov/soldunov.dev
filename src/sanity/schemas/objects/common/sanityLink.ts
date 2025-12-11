@@ -5,6 +5,7 @@ import type { Route } from '../../documents/base/route';
 export type SanityLinkType = {
 	_type: 'sanityLink';
 	_key: string;
+	name?: string;
 	url?: string;
 	route?: Route;
 	routeParams?: string;
@@ -17,6 +18,11 @@ const sanityLink = defineType({
 	type: 'object',
 	icon: Link,
 	fields: [
+		defineField({
+			name: 'name',
+			type: 'string',
+			title: 'Name',
+		}),
 		defineField({
 			name: 'route',
 			type: 'reference',
@@ -50,19 +56,20 @@ const sanityLink = defineType({
 	],
 	preview: {
 		select: {
+			name: 'name',
 			url: 'url',
 			routeParams: 'routeParams',
 			route: 'route',
 			routeSlug: 'route.slug.current',
 		},
-		prepare({ url, route, routeSlug, routeParams }) {
+		prepare({ url, route, routeSlug, routeParams, name }) {
 			const subtitle =
 				(!!route && `${routeSlug}${routeParams ? `${routeParams}` : ''}`) ||
 				url ||
 				'No URL/Route set';
 
 			return {
-				title: route ? 'External Link' : 'Internal Link',
+				title: name ? name : route ? 'External Link' : 'Internal Link',
 				subtitle: subtitle,
 				media: Link,
 			};

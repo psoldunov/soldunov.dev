@@ -25,7 +25,7 @@ export default function defineSection({
 	title: string;
 	icon?: ComponentType | ReactElement;
 	fields: Array<FieldDefinition>;
-	preview: PreviewConfig;
+	preview?: PreviewConfig;
 }) {
 	return defineType({
 		name,

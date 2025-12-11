@@ -11,24 +11,24 @@ export const PADDING_OPTIONS = [
 		value: 'small',
 		label: 'SM',
 		className: {
-			top: 'pt-2',
-			bottom: 'pb-2',
+			top: 'pt-8',
+			bottom: 'pb-8',
 		},
 	},
 	{
 		value: 'medium',
 		label: 'MD',
 		className: {
-			top: 'pt-4',
-			bottom: 'pb-4',
+			top: 'pt-12',
+			bottom: 'pb-12',
 		},
 	},
 	{
 		value: 'large',
 		label: 'LG',
 		className: {
-			top: 'pt-6',
-			bottom: 'pb-6',
+			top: 'pt-24',
+			bottom: 'pb-24',
 		},
 	},
 	{
