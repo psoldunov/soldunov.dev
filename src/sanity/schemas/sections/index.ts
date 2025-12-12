@@ -4,10 +4,11 @@ import experienceSection, {
 	type ExperienceSectionProps,
 } from './experienceSection';
 import heroSection, { HERO_SECTION_QUERY_PART } from './heroSection';
+import portfolioSection from './portfolioSection';
 
 export type SectionProps = HeroSectionProps | ExperienceSectionProps;
 
-const sectionTypes = [heroSection, experienceSection];
+const sectionTypes = [heroSection, experienceSection, portfolioSection];
 
 export const SECTIONS_QUERY_PARTS = [
 	HERO_SECTION_QUERY_PART,

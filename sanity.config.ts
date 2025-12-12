@@ -1,6 +1,7 @@
+import { iconPicker } from '@psoldunov/sanity-plugin-icon-picker';
 import { codeInput } from '@sanity/code-input';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
-import { Settings, StickyNote } from 'lucide-react';
+import { CodeIcon, Settings, StickyNote } from 'lucide-react';
 import type { ComponentType } from 'react';
 import { RiRouteLine } from 'react-icons/ri';
 import { defineConfig, type SchemaTypeDefinition } from 'sanity';
@@ -55,6 +56,7 @@ export default defineConfig({
 	ignoreBrowserTokenWarning: true,
 	plugins: [
 		codeInput(),
+		iconPicker(),
 		structureTool({
 			structure: (S, context) => {
 				return S.list()
@@ -82,6 +84,20 @@ export default defineConfig({
 							context,
 						}),
 						S.divider(),
+						orderableDocumentListDeskItem({
+							title: 'Projects',
+							type: 'project',
+							icon: CodeIcon,
+							S,
+							context,
+						}),
+						orderableDocumentListDeskItem({
+							title: 'Technologies',
+							type: 'technology',
+							icon: CodeIcon,
+							S,
+							context,
+						}),
 					]);
 			},
 		}),
