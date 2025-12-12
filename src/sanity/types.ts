@@ -1,8 +1,5 @@
 import type { SanityReference } from 'next-sanity';
 import type { ImageAsset, ImageCrop, ImageHotspot } from 'sanity';
-import type { PADDING_OPTIONS } from '@/config';
-
-type PaddingValue = (typeof PADDING_OPTIONS)[number]['value'];
 
 export type BaseSectionProps = {
 	_type: string;
@@ -11,8 +8,8 @@ export type BaseSectionProps = {
 	sectionId?: string;
 	hidden?: boolean;
 	sectionPadding?: {
-		paddingTop?: PaddingValue;
-		paddingBottom?: PaddingValue;
+		paddingTop?: string;
+		paddingBottom?: string;
 	};
 };
 

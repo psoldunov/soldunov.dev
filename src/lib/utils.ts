@@ -1,3 +1,4 @@
+import { vercelStegaSplit } from '@vercel/stega';
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { Route } from '@/sanity/schemas/documents/base/route';
@@ -112,4 +113,21 @@ export function getTarget(url: string | undefined): '_blank' | undefined {
 		return '_blank';
 	}
 	return undefined;
+}
+
+/**
+ * Extracts the cleaned value from stega-encoded data in draft mode.
+ * In draft mode, Sanity encodes metadata into strings which can cause issues.
+ * This function safely extracts the actual value from stega-encoded strings.
+ *
+ * @param value - The potentially stega-encoded value (string or undefined)
+ * @returns The cleaned value if it was stega-encoded, or the original value
+ */
+export function extractStegaValue(
+	value: string | undefined,
+): string | undefined {
+	if (!value || typeof value !== 'string') {
+		return value;
+	}
+	return vercelStegaSplit(value).cleaned;
 }

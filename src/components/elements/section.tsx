@@ -1,5 +1,4 @@
-import { PADDING_OPTIONS } from '@/config';
-import { cn } from '@/lib/utils';
+import { cn, extractStegaValue } from '@/lib/utils';
 import type { BaseSectionProps } from '@/sanity/types';
 
 export default function Section({
@@ -15,21 +14,19 @@ export default function Section({
 	id?: string;
 	sectionPadding?: BaseSectionProps['sectionPadding'];
 }) {
-	const paddingTop = sectionPadding?.paddingTop;
-	const paddingBottom = sectionPadding?.paddingBottom;
+	// Extract cleaned values from stega-encoded data in draft mode
+	const paddingTopValue = extractStegaValue(sectionPadding?.paddingTop);
+	const paddingBottomValue = extractStegaValue(sectionPadding?.paddingBottom);
 
 	return (
 		<section
 			id={id}
 			section-type={type}
-			className={cn(
-				'section',
-				className,
-				PADDING_OPTIONS.find((option) => option.value === paddingTop)?.className
-					.top,
-				PADDING_OPTIONS.find((option) => option.value === paddingBottom)
-					?.className.bottom,
-			)}
+			className={cn('section', className)}
+			style={{
+				paddingTop: paddingTopValue,
+				paddingBottom: paddingBottomValue,
+			}}
 		>
 			{children}
 		</section>

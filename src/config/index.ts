@@ -1,42 +1,22 @@
 export const PADDING_OPTIONS = [
 	{
-		value: 'none',
+		value: '0',
 		label: '-',
-		className: {
-			top: 'pt-0',
-			bottom: 'pb-0',
-		},
 	},
 	{
-		value: 'small',
+		value: '2rem',
 		label: 'SM',
-		className: {
-			top: 'pt-8',
-			bottom: 'pb-8',
-		},
 	},
 	{
-		value: 'medium',
+		value: '3rem',
 		label: 'MD',
-		className: {
-			top: 'pt-12',
-			bottom: 'pb-12',
-		},
 	},
 	{
-		value: 'large',
+		value: '6rem',
 		label: 'LG',
-		className: {
-			top: 'pt-24',
-			bottom: 'pb-24',
-		},
 	},
 	{
-		value: 'xlarge',
+		value: '8rem',
 		label: 'XL',
-		className: {
-			top: 'pt-32',
-			bottom: 'pb-32',
-		},
 	},
 ];
