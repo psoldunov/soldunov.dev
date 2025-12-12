@@ -10,13 +10,13 @@ export default function Connect({
 	items?: SanityLinkType[];
 }) {
 	return (
-		<div>
+		<div className='flex flex-col items-start'>
 			{!!heading && (
 				<h2 className='mb-3 font-semibold text-foreground/40 text-xl'>
 					{heading}
 				</h2>
 			)}
-			<ul className='font-semibold text-lg leading-snug transition-colors duration-1000 has-[a:hover]:text-foreground/30'>
+			<ul className='flex flex-col items-start font-semibold text-lg leading-snug transition-colors duration-1000 has-[a:hover]:text-foreground/30'>
 				{!!items?.length &&
 					items.map((item) => (
 						<li key={item._key}>
