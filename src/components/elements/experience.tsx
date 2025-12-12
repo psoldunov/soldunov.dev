@@ -10,13 +10,13 @@ export default function Experience({
 	items: ExperienceItem[];
 }) {
 	return (
-		<div>
+		<div className='flex flex-col items-start'>
 			{!!heading && (
 				<h2 className='mb-3 font-semibold text-foreground/40 text-xl'>
 					{heading}
 				</h2>
 			)}
-			<ul className='font-medium text-lg leading-snug transition-colors duration-1000 has-[a:hover]:text-foreground/30! [&_span]:text-foreground/60 [&_span]:transition-colors [&_span]:duration-1000 has-[a:hover]:[&_span]:text-foreground/30!'>
+			<ul className='flex flex-col items-start font-medium text-lg leading-snug transition-colors duration-1000 has-[a:hover]:text-foreground/30! [&_span]:text-foreground/60 [&_span]:transition-colors [&_span]:duration-1000 has-[a:hover]:[&_span]:text-foreground/30!'>
 				{!!items?.length &&
 					items.map((item) => (
 						<li key={item._key}>
@@ -27,15 +27,15 @@ export default function Experience({
 										<Link
 											href={item.url}
 											target={getTarget(item.url)}
-											className='hover:text-foreground'
+											className='text-nowrap hover:text-foreground'
 										>
 											{item.company}
 										</Link>
 									) : (
-										item.company
+										<span className='text-nowrap'>{item.company}</span>
 									))}
 								{item.company && ', '}
-								{item.dates}
+								<span className='text-nowrap'>{item.dates}</span>
 							</span>
 						</li>
 					))}

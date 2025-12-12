@@ -29,7 +29,7 @@ export default function FancyPortableText({
 	return (
 		<div
 			className={cn(
-				'group max-w-5xl font-semibold text-4.5xl text-foreground leading-xtight transition-colors duration-1000 has-[a:hover]:text-foreground/30',
+				'group max-w-5xl font-semibold text-3xl text-foreground leading-xtight transition-colors duration-1000 has-[a:hover]:text-foreground/30 md:text-4.5xl',
 				className,
 			)}
 		>

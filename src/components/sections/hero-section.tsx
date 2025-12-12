@@ -38,7 +38,7 @@ export default function HeroSection({
 					/>
 				</AvatarInteraction>
 				{!!heading && (
-					<h1 className='font-semibold text-4.5xl text-foreground/40'>
+					<h1 className='font-semibold text-3xl text-foreground/40 md:text-4.5xl'>
 						{heading}
 					</h1>
 				)}
