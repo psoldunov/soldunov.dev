@@ -5,6 +5,7 @@ import { draftMode } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import grain from '@/assets/grain.png';
 import Html from '@/components/layout/html';
+import SmoothMain from '@/components/motion/smooth-main';
 import DisableDraftMode from '@/components/utility/DisableDraftMode';
 import { sfMono, sfProDisplay } from '@/fonts';
 import { cn } from '@/lib/utils';
@@ -34,7 +35,7 @@ export default async function RootLayout({
 					)}
 					style={{ '--bg-image': `url(${grain.src})` } as React.CSSProperties}
 				>
-					{children}
+					<SmoothMain>{children}</SmoothMain>
 					<SanityLive />
 					{(await draftMode()).isEnabled && (
 						<>

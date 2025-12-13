@@ -13,6 +13,13 @@ export type BaseSectionProps = {
 	};
 };
 
+export type SanityIconObject = {
+	_type: 'iconPicker';
+	svg: string;
+	name: string;
+	provider: string;
+};
+
 export type SanityImageProps = {
 	image: SanityImageObject;
 	width?: number;

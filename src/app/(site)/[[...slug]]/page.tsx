@@ -96,10 +96,10 @@ export default async function Page({
 
 	return (
 		<>
-			{route?.page?.sections?.map((section, index) => {
+			{route?.page?.sections?.map((section) => {
 				return (
 					<SectionRenderer
-						key={index}
+						key={section._key}
 						section={section}
 						searchParams={searchParamsObj}
 					/>

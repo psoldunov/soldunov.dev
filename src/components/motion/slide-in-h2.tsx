@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
-export default function SlideInDiv({
+export default function SlideInH2({
 	className,
 	children,
 }: {
@@ -11,7 +11,7 @@ export default function SlideInDiv({
 	children?: React.ReactNode;
 }) {
 	return (
-		<motion.div
+		<motion.h2
 			initial={{ translateY: 20, opacity: 0 }}
 			whileInView={{ translateY: 0, opacity: 1 }}
 			viewport={{ once: true }}
@@ -19,6 +19,6 @@ export default function SlideInDiv({
 			className={cn(className)}
 		>
 			{children}
-		</motion.div>
+		</motion.h2>
 	);
 }

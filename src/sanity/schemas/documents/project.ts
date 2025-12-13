@@ -1,18 +1,27 @@
 import { orderRankField } from '@sanity/orderable-document-list';
-import { CodeIcon } from 'lucide-react';
+import { CodeXmlIcon } from 'lucide-react';
 import { defineType } from 'sanity';
+import type { SanityImageObject } from '@/sanity/types';
 import defineImage from '../constructors/defineImage';
+import type { Technology } from './technology';
 
 export type Project = {
+	_id: string;
 	_type: 'project';
 	_key: string;
+	name: string;
+	description: string;
+	year: string;
+	image: SanityImageObject;
+	url: string;
+	technologies: Technology[];
 };
 
 const project = defineType({
 	name: 'project',
 	title: 'Project',
 	type: 'document',
-	icon: CodeIcon,
+	icon: CodeXmlIcon,
 	fields: [
 		{
 			name: 'name',

@@ -48,8 +48,8 @@ export default function SanityImage({
 				height,
 			})}
 			alt={image.alt || ''}
-			width={width || dimensions?.width}
-			height={height || dimensions?.height}
+			width={!fill ? width || dimensions?.width : undefined}
+			height={!fill ? height || dimensions?.height : undefined}
 			placeholder={blurHash ? 'blur' : undefined}
 			blurDataURL={blurHash ? blurhashToBase64(blurHash) : undefined}
 			className={className}

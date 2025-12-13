@@ -2,8 +2,8 @@ import type { ExperienceSectionProps } from '@/sanity/schemas/sections/experienc
 import Connect from '../elements/connect';
 import Experience from '../elements/experience';
 import Section from '../elements/section';
-import SlideInDiv from '../elements/slide-in-div';
 import Container from '../layout/container';
+import SlideInDiv from '../motion/slide-in-div';
 
 export default function ExperienceSectionComponent(
 	props: ExperienceSectionProps,

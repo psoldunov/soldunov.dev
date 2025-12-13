@@ -12,7 +12,7 @@ export default function Experience({
 	return (
 		<div className='flex flex-col items-start'>
 			{!!heading && (
-				<h2 className='mb-3 font-semibold text-foreground/40 text-xl'>
+				<h2 className='mb-3 font-semibold text-foreground/50 text-xl'>
 					{heading}
 				</h2>
 			)}
