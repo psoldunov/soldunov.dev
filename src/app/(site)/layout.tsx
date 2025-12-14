@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { Analytics } from '@vercel/analytics/next';
 import { Provider } from 'jotai';
-import { draftMode, headers } from 'next/headers';
+import { draftMode } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import grain from '@/assets/grain.png';
 import Footer from '@/components/layout/footer';
@@ -12,7 +12,7 @@ import DisableDraftMode from '@/components/utility/DisableDraftMode';
 import JsonLd from '@/components/utility/JsonLd';
 import { sfMono, sfProDisplay } from '@/fonts';
 import { generatePersonSchema, generateWebSiteSchema } from '@/lib/schema.org';
-import { cn } from '@/lib/utils';
+import { cn, getSiteUrl } from '@/lib/utils';
 import { SanityLive, sanityFetch } from '@/sanity/lib/live';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
 import { getCachedOGImageUrl } from '@/sanity/lib/utils';
@@ -29,6 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		'Software developer focused on fast Next.js apps, Sanity-powered sites, and React/Expo mobile work for brands like Haartz, Learneo, Atlas, and Navier.';
 
 	return {
+		metadataBase: new URL(getSiteUrl()),
 		title: settings?.title || defaultTitle,
 		description: settings?.description || defaultDescription,
 		openGraph: {
@@ -46,10 +47,7 @@ export default async function RootLayout({
 		query: SITE_SETTINGS_QUERY,
 	});
 
-	const headersList = await headers();
-	const host = headersList.get('host') || 'soldunov.dev';
-	const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-	const siteUrl = `${protocol}://${host}`;
+	const siteUrl = getSiteUrl();
 
 	const personName = 'Philipp Soldunov';
 	const personDescription =

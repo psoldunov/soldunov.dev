@@ -116,6 +116,31 @@ export function getTarget(url: string | undefined): '_blank' | undefined {
 }
 
 /**
+ * Gets the site URL using Vercel environment variables
+ * Falls back to localhost for local development
+ * @returns The full site URL (e.g., https://soldunov.dev)
+ */
+export function getSiteUrl(): string {
+	const vercelUrl = process.env.VERCEL_URL;
+	const vercelEnv = process.env.VERCEL_ENV;
+
+	// Use VERCEL_URL if available (includes protocol in production)
+	if (vercelUrl) {
+		// VERCEL_URL doesn't include protocol, so we add it
+		// Vercel uses https for all deployments
+		return `https://${vercelUrl}`;
+	}
+
+	// Fallback for local development
+	if (vercelEnv === 'development' || !vercelEnv) {
+		return 'http://localhost:3000';
+	}
+
+	// Final fallback
+	return 'https://soldunov.dev';
+}
+
+/**
  * Extracts the cleaned value from stega-encoded data in draft mode.
  * In draft mode, Sanity encodes metadata into strings which can cause issues.
  * This function safely extracts the actual value from stega-encoded strings.
