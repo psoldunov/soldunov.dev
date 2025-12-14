@@ -1,19 +1,62 @@
 # Cursor Rules
 - Project: Next.js 16 App Router with strict TypeScript, Tailwind v4, and Jotai. Source lives in `src` with `@/*` aliasing to `src/*`.
-- Styling: prefer Tailwind utilities; reuse `cn` from `@/lib/utils`; global tweaks belong in `@/styles/globals.css`.
-- Layout: shared wrappers in `@/components/layout`, sections in `@/components/sections`, reusable bits in `@/components/elements` and `@/components/ui`.
-- Assets/fonts: fonts export from `@/fonts` (CSS vars already wired in `RootLayout`); keep the grain background (`@/assets/grain.png`) pattern intact unless intentionally changed.
-- State & animation: lean on Jotai atoms in `@/lib/state`; use existing motion patterns before adding new animation helpers.
+- CMS: Sanity v4 with live preview and visual editing support.
+- Package Manager: Bun (bun.lock is authoritative).
+
+# Styling
+- Prefer Tailwind utilities; reuse `cn` from `@/lib/utils`; global tweaks belong in `@/styles/globals.css`.
+- Custom color palette: `--onyx`, `--alibaster-gray`, `--azure-blue`, `--strawberry-red`, `--malachite-green`.
+- Theme system: Infrastructure provisioned (`themeAtom` in `@/lib/state`, `data-theme` attribute in `Html` component), but UI toggle not yet implemented. Currently defaults to system preference.
+- Keep the grain background (`@/assets/grain.png`) pattern intact unless intentionally changed.
+
+# Component Organization
+- Layout: shared wrappers in `@/components/layout` (Container, Footer, Html).
+- Sections: page-level sections in `@/components/sections` (heroSection, portfolioSection, experienceSection).
+- Elements: reusable building blocks in `@/components/elements` with built-in animation patterns.
+- UI: interactive components in `@/components/ui` (ProjectCard, AvatarInteraction, etc.).
+- Motion: animation components in `@/components/motion` (SlideInDiv, SlideInH2, etc.).
+- Utility: utility components in `@/components/utility` (JsonLd, SanityImage, SanityLink, etc.).
+
+# State & Animation
+- Use Jotai atoms in `@/lib/state` for global state; prefer `atomWithStorage` for persistence.
+- Use existing Motion patterns before adding new animation helpers.
+- Standard animation pattern: `initial` → `whileInView` with `viewport={{ once: true }}`.
+
+# SEO & Metadata
+- Use `generateMetadata()` functions for dynamic metadata generation.
+- Add schema.org structured data via `JsonLd` component using generators from `@/lib/schema.org`.
+- Use `getSiteUrl()` from `@/lib/utils` for URL generation (uses Vercel environment variables).
+- Set `metadataBase` in root layout metadata.
+- Include Open Graph images from Sanity using `getCachedOGImageUrl()`.
+
+# Accessibility
+- Use semantic HTML: `<main>`, `<section>`, `<article>`, `<footer>`, proper heading hierarchy (h1 → h2 → h3).
+- Add `aria-hidden="true"` to decorative icons (ArrowUpRight, etc.).
+- Include skip-to-content link in root layout.
+- Use proper ARIA labels for interactive elements.
+- Ensure keyboard navigation support.
+
+# Sanity Integration
+- Use `sanityFetch` from `@/sanity/lib/live` for data fetching.
+- Queries defined in `@/sanity/lib/queries`.
+- Schema types in `@/sanity/schemas`.
+- Use `SanityImage` component for optimized images with blurhash placeholders.
+- Use `SanityLink` component for internal/external links.
+
+# Environment Variables
+- Use Vercel system variables: `VERCEL_ENV`, `VERCEL_PROJECT_PRODUCTION_URL` (via `getSiteUrl()`).
+- Sanity variables: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_API_VERSION`.
+- Document new env vars in `README.md`.
 
 # Commands
-- Install deps: `bun install` (bun.lock is authoritative).
+- Install deps: `bun install`.
 - Dev server: `bun dev`.
-- Lint: `bun run lint` (Biome). Format: `bun run format`.
+- Lint: `bun run lint` (Biome).
+- Format: `bun run format` (Biome).
 
 # Conventions
-- Use TypeScript and keep strictness in mind; prefer server components unless the feature needs client-side state or effects.
+- Use TypeScript with strict mode; prefer server components unless the feature needs client-side state or effects.
 - Keep components small and composable; new page sections belong under `components/sections`.
 - Use absolute imports with `@/`; avoid redefining shared helpers already in `lib`.
-- If adding env vars or configuration, document them in `README.md`.
 - Run lint/format before committing; avoid introducing new tooling without discussion.
-
+- When adding new features, consider accessibility, SEO, and semantic HTML structure.
