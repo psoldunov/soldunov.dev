@@ -121,7 +121,7 @@ export function getTarget(url: string | undefined): '_blank' | undefined {
  * @returns The full site URL (e.g., https://soldunov.dev)
  */
 export function getSiteUrl(): string {
-	const vercelUrl = process.env.VERCEL_URL;
+	const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 	const vercelEnv = process.env.VERCEL_ENV;
 
 	// Use VERCEL_URL if available (includes protocol in production)
