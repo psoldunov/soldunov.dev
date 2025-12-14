@@ -25,7 +25,7 @@ export default function Connect({
 								className='inline-flex items-center gap-2 hover:text-foreground!'
 							>
 								{item.name}
-								<ArrowUpRight className='h-4 w-4' />
+								<ArrowUpRight className='h-4 w-4' aria-hidden='true' />
 							</SanityLink>
 						</li>
 					))}

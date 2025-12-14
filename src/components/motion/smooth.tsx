@@ -5,11 +5,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { useIsClient, useIsTouchDevice } from '@/hooks';
 import { cn } from '@/lib/utils';
 
-export default function SmoothMain({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function Smooth({ children }: { children: React.ReactNode }) {
 	const isClient = useIsClient();
 	const isTouchDevice = useIsTouchDevice();
 
@@ -84,13 +80,13 @@ export default function SmoothMain({
 			 * The content.  If it exceeds the height of the viewport, translate its y-position to the top.
 			 * Its position is fixed by default and moves when the user scrolls.
 			 */}
-			<motion.main
+			<motion.div
 				className={cn('fixed top-0 w-full')}
 				style={{ y, willChange: 'transform' }}
 				ref={contentRef}
 			>
 				{children}
-			</motion.main>
+			</motion.div>
 			{/**
 			 * An invisible div with the actual height of the content.
 			 * This will expand the height of the body and trigger the default browser scrollbar.

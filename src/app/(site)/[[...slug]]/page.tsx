@@ -1,5 +1,8 @@
+import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
+import JsonLd from '@/components/utility/JsonLd';
 import { SectionRenderer } from '@/components/utility/SectionRenderer';
+import { generateWebPageSchema } from '@/lib/schema.org';
 import { hasDynamicParams, normalizeSlug, splitSlug } from '@/lib/utils';
 import { sanityFetch } from '@/sanity/lib/live';
 import {
@@ -94,8 +97,29 @@ export default async function Page({
 		? await searchParams
 		: undefined;
 
+	// Generate WebPage schema
+	const headersList = await headers();
+	const host = headersList.get('host') || 'soldunov.dev';
+	const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+	const currentPath = normalizeSlug(slug) || '/';
+	const pageUrl = `${protocol}://${host}${currentPath === '/' ? '' : `/${currentPath}`}`;
+
+	const pageTitle = route.page.seo?.title || route.page.title || '';
+	const pageDescription = route.page.seo?.description || '';
+	const pageImage = route.page.seo?.ogImage
+		? getCachedOGImageUrl(route.page.seo.ogImage)
+		: undefined;
+
+	const webPageSchema = generateWebPageSchema(
+		pageTitle,
+		pageDescription,
+		pageUrl,
+		pageImage,
+	);
+
 	return (
 		<>
+			<JsonLd data={webPageSchema} />
 			{route?.page?.sections?.map((section) => {
 				return (
 					<SectionRenderer

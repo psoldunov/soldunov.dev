@@ -1,32 +1,67 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { Provider } from 'jotai';
-import { draftMode } from 'next/headers';
+import { draftMode, headers } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
 import grain from '@/assets/grain.png';
+import Footer from '@/components/layout/footer';
 import Html from '@/components/layout/html';
-import SmoothMain from '@/components/motion/smooth-main';
+import Smooth from '@/components/motion/smooth';
 import DisableDraftMode from '@/components/utility/DisableDraftMode';
+import JsonLd from '@/components/utility/JsonLd';
 import { sfMono, sfProDisplay } from '@/fonts';
+import { generatePersonSchema, generateWebSiteSchema } from '@/lib/schema.org';
 import { cn } from '@/lib/utils';
-import { SanityLive } from '@/sanity/lib/live';
+import { SanityLive, sanityFetch } from '@/sanity/lib/live';
+import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
+import type { SettingsType } from '@/sanity/schemas/documents/base/settings';
 
-export const metadata: Metadata = {
-	title: 'Philipp Soldunov | React, Next.js, Expo and Sanity Developer',
-	description:
-		"I'm a software developer with a thing for sharp design and fast, maintainable code. I focus on full-stack Next.js apps, content-driven websites powered by Next.js and Sanity, and mobile experiences built with React and Expo. I've contributed to projects for Haartz, Learneo, Point Card (Atlas), Toca Madera, Navier, and Angry Mob Music.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const { data: settings }: { data: SettingsType } = await sanityFetch({
+		query: SITE_SETTINGS_QUERY,
+	});
 
-// https://web.archive.org/web/20211214011830/https://www.point.app/intersection
+	const defaultTitle =
+		'Philipp Soldunov | React, Next.js, Expo and Sanity Developer';
+	const defaultDescription =
+		'Software developer focused on fast Next.js apps, Sanity-powered sites, and React/Expo mobile work for brands like Haartz, Learneo, Atlas, and Navier.';
+
+	return {
+		title: settings?.title || defaultTitle,
+		description: settings?.description || defaultDescription,
+	};
+}
 
 export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const { data: settings }: { data: SettingsType } = await sanityFetch({
+		query: SITE_SETTINGS_QUERY,
+	});
+
+	const headersList = await headers();
+	const host = headersList.get('host') || 'soldunov.dev';
+	const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+	const siteUrl = `${protocol}://${host}`;
+
+	const personName = 'Philipp Soldunov';
+	const personDescription =
+		settings?.description ||
+		'Software developer focused on fast Next.js apps, Sanity-powered sites, and React/Expo mobile work for brands like Haartz, Learneo, Atlas, and Navier.';
+	const siteTitle = settings?.title || 'Philipp Soldunov';
+	const siteDescription = settings?.description || '';
+
+	const schemas = [
+		generatePersonSchema(personName, personDescription, undefined, siteUrl),
+		generateWebSiteSchema(siteTitle, siteDescription, siteUrl),
+	];
+
 	return (
 		<Provider>
 			<Html lang='en'>
+				<JsonLd data={schemas} />
 				<body
 					className={cn(
 						'bg-(image:--bg-image) bg-size-[100px_100px] bg-repeat antialiased',
@@ -35,7 +70,17 @@ export default async function RootLayout({
 					)}
 					style={{ '--bg-image': `url(${grain.src})` } as React.CSSProperties}
 				>
-					<SmoothMain>{children}</SmoothMain>
+					<a
+						href='#main-content'
+						className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-foreground focus:px-4 focus:py-2 focus:text-background focus:outline-none focus:ring-2 focus:ring-foreground focus:ring-offset-2 focus:ring-offset-background'
+					>
+						Skip to main content
+					</a>
+					<Smooth>
+						<main id='main-content'>{children}</main>
+						<Footer />
+					</Smooth>
+
 					<SanityLive />
 					{(await draftMode()).isEnabled && (
 						<>

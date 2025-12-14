@@ -24,17 +24,21 @@ export default function PortfolioSectionComponent({
 							{description}
 						</SlideInParagraph>
 					)}
-					<div className='flex flex-col gap-8'>
+					<ul className='flex list-none flex-col gap-8'>
 						{!!projects?.length &&
 							projects.map((project, index) => (
-								<SlideInDiv key={`${project._id}-${index}`}>
-									<ProjectCard project={project} />
+								<li key={`${project._id}-${index}`}>
+									<SlideInDiv>
+										<article>
+											<ProjectCard project={project} />
+										</article>
+									</SlideInDiv>
 									{index < projects.length - 1 && (
 										<hr className='mt-8 border-foreground/10 border-dashed' />
 									)}
-								</SlideInDiv>
+								</li>
 							))}
-					</div>
+					</ul>
 				</div>
 			</Container>
 		</section>

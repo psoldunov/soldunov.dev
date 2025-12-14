@@ -10,6 +10,7 @@ export const PORTFOLIO_SECTION_QUERY_PART = defineQuery(`
 		...,
 		projects[]->{
 			...,
+			partner->,
 			technologies[]->,
 			${getImageFragment('image')}
 		}

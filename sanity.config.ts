@@ -1,12 +1,19 @@
 import { iconPicker } from '@psoldunov/sanity-plugin-icon-picker';
 import { codeInput } from '@sanity/code-input';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
-import { CodeXmlIcon, CpuIcon, Settings, StickyNote } from 'lucide-react';
+import {
+	CodeXmlIcon,
+	CpuIcon,
+	Settings,
+	StickyNote,
+	UserIcon,
+} from 'lucide-react';
 import type { ComponentType } from 'react';
 import { RiRouteLine } from 'react-icons/ri';
 import { defineConfig, type SchemaTypeDefinition } from 'sanity';
 import { presentationTool } from 'sanity/presentation';
 import { type StructureBuilder, structureTool } from 'sanity/structure';
+import StudioIcon from '@/sanity/components/studio-icon';
 import { apiVersion, dataset, projectId } from '@/sanity/env';
 import { resolve } from '@/sanity/lib/resolve';
 import { schemaTypes } from '@/sanity/schemas';
@@ -48,7 +55,7 @@ const singletonListItem = ({
 export default defineConfig({
 	name: 'default',
 	title: 'soldunov.dev',
-	// icon: SanityIcon,
+	icon: StudioIcon,
 	basePath: '/admin',
 	projectId,
 	dataset,
@@ -95,6 +102,13 @@ export default defineConfig({
 							title: 'Technologies',
 							type: 'technology',
 							icon: CpuIcon,
+							S,
+							context,
+						}),
+						orderableDocumentListDeskItem({
+							title: 'Partners',
+							type: 'partner',
+							icon: UserIcon,
 							S,
 							context,
 						}),
