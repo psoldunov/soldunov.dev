@@ -14,6 +14,7 @@ import { generatePersonSchema, generateWebSiteSchema } from '@/lib/schema.org';
 import { cn } from '@/lib/utils';
 import { SanityLive, sanityFetch } from '@/sanity/lib/live';
 import { SITE_SETTINGS_QUERY } from '@/sanity/lib/queries';
+import { getCachedOGImageUrl } from '@/sanity/lib/utils';
 import type { SettingsType } from '@/sanity/schemas/documents/base/settings';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,6 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
 	return {
 		title: settings?.title || defaultTitle,
 		description: settings?.description || defaultDescription,
+		openGraph: {
+			images: settings?.ogImage ? [getCachedOGImageUrl(settings.ogImage)] : [],
+		},
 	};
 }
 
