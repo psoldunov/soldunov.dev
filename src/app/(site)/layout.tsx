@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
+import { Analytics } from '@vercel/analytics/next';
 import { Provider } from 'jotai';
 import { draftMode, headers } from 'next/headers';
 import { VisualEditing } from 'next-sanity/visual-editing';
@@ -84,7 +85,6 @@ export default async function RootLayout({
 						<main id='main-content'>{children}</main>
 						<Footer />
 					</Smooth>
-
 					<SanityLive />
 					{(await draftMode()).isEnabled && (
 						<>
@@ -92,6 +92,7 @@ export default async function RootLayout({
 							<VisualEditing />
 						</>
 					)}
+					<Analytics />
 				</body>
 			</Html>
 		</Provider>
