@@ -56,9 +56,17 @@ export async function generateMetadata({
 
 	const { title, seo } = route.page;
 
+	const siteUrl = getSiteUrl();
+	const currentPath = normalizeSlug(slug);
+	const canonicalUrl =
+		currentPath === '/' ? siteUrl : `${siteUrl}${currentPath}`;
+
 	return {
 		title: seo.title || title || '',
 		description: seo.description || settings?.description || '',
+		alternates: {
+			canonical: canonicalUrl,
+		},
 		openGraph: {
 			images: [
 				seo.ogImage
