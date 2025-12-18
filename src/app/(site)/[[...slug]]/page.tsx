@@ -75,6 +75,10 @@ export async function generateMetadata({
 						? getCachedOGImageUrl(settings.ogImage)
 						: '',
 			].filter(Boolean),
+			siteName: 'Philipp Soldunov',
+			type: 'website',
+			url: canonicalUrl,
+			locale: 'en_US',
 		},
 	};
 }
