@@ -35,6 +35,10 @@ export async function generateMetadata(): Promise<Metadata> {
 		description: settings?.description || defaultDescription,
 		openGraph: {
 			images: settings?.ogImage ? [getCachedOGImageUrl(settings.ogImage)] : [],
+			siteName: 'Philipp Soldunov',
+			type: 'website',
+			url: getSiteUrl(),
+			locale: 'en_US',
 		},
 	};
 }
